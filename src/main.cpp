@@ -2,7 +2,7 @@
 #include <filesystem>
 #include "CLI/CLI11.hpp"
 #include "git_repo_checker.hpp"
-
+#include "git_branch_info.hpp"
 namespace fs = std::filesystem;
 
 int main(int argc, char** argv){
@@ -28,6 +28,8 @@ int main(int argc, char** argv){
         std::cerr << "Exiting: The provided path is not a valid Git repository.\n";
         return 1;
     }
+
+    print_branch_info(path);
 
     return 0;
 }
