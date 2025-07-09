@@ -1,4 +1,7 @@
-<h2>Install dependencies:<h2><br>
+<h2>Install dependencies:</h2><br>
+
+Build Requirements: <br>
+c++ 17 or latest
 
 * Ubuntu/debian:
 
