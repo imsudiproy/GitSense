@@ -16,6 +16,7 @@ link_directories(${LIBGIT2_LIBRARY_DIRS})
 add_executable(gitSense 
     src/main.cpp
     src/git_repo_checker.cpp
+    src/git_branch_info.cpp
 )
 
 #Link libgit2
