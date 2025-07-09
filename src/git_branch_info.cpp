@@ -37,8 +37,21 @@ void print_branch_info(const std::string& repo_path) {
     if (git_branch_upstream(&upstream, head) == 0) {
         size_t ahead = 0, behind = 0;
 
-        git_oid local_oid = *git_reference_target(head);
-        git_oid upstream_oid = *git_reference_target(upstream);
+        const git_oid* local_oid_ptr = git_reference_target(head);
+        const git_oid* upstream_oid_ptr = git_reference_target(upstream);
+
+        if (!local_oid_ptr || !upstream_oid_ptr) {
+            std::cerr << "❌ Unable to retrieve OIDs for ahead/behind check.\n";
+        } else {
+            size_t ahead = 0, behind = 0;
+            if (git_graph_ahead_behind(&ahead, &behind, repo, local_oid_ptr, upstream_oid_ptr) == 0) {
+                std::cout << "📡 Tracking status: "
+                        << "ahead " << ahead << ", behind " << behind << "\n";
+            } else {
+                std::cout << "⚠️  Could not determine ahead/behind info.\n";
+            }
+        }
+
 
         if (git_graph_ahead_behind(&ahead, &behind, repo, &local_oid, &upstream_oid) == 0) {
             std::cout << "📡 Tracking status: "
